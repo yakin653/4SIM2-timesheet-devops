@@ -1,13 +1,8 @@
 pipeline { 
     agent any 
  
-    tools { 
-        maven 'Maven-3.9' 
-        jdk 'JDK17' 
-    } 
- 
     stages { 
-        stage('Checkout Git') { 
+        stage('Checkout') { 
             steps { 
                 checkout scm 
             } 
@@ -15,23 +10,14 @@ pipeline {
  
         stage('Build') { 
             steps { 
-                bat 'mvn clean compile' 
+                bat "C:\maven\apache-maven-3.9.9\bin\mvn clean compile" 
             } 
         } 
  
         stage('Package') { 
             steps { 
-                bat 'mvn package -DskipTests' 
+                bat "C:\maven\apache-maven-3.9.9\bin\mvn package -DskipTests" 
             } 
-        } 
-    } 
- 
-    post { 
-        success { 
-            echo 'Pipeline CI reussie !' 
-        } 
-        failure { 
-            echo 'Pipeline CI echouee.' 
         } 
     } 
 } 
